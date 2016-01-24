@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.iubeier.portal.mapper.NewsMapper">
+    <resultMap id="newsMapper" type="News">
+        <id property="newsId" column="f_info_id" />
+        <result property="title" column="f_key" />
+        <result property="content" column="f_value" />
+    </resultMap>
+
+    <select id="getNewsById" parameterType="String" resultMap="newsMapper">
+        <![CDATA[
+            select * from cms_info_clob where f_info_id=#{newsId}
+        ]]>
+    </select>
+
+</mapper>
