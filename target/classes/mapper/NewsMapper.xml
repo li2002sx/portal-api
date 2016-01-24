@@ -5,14 +5,36 @@
 <mapper namespace="com.iubeier.portal.mapper.NewsMapper">
     <resultMap id="newsMapper" type="News">
         <id property="newsId" column="f_info_id" />
-        <result property="title" column="f_key" />
-        <result property="content" column="f_value" />
+        <result property="title" column="f_title" />
+        <result property="summary" column="f_meta_description" />
+        <result property="publishDate" column="f_publish_date" />
     </resultMap>
 
-    <select id="getNewsById" parameterType="String" resultMap="newsMapper">
-        <![CDATA[
-            select * from cms_info_clob where f_info_id=#{newsId}
-        ]]>
+    <select id="getNewsById" parameterType="int" resultMap="newsMapper">
+        select a.f_info_id,b.f_meta_description,b.f_title from cms_info_clob as a
+        join cms_info_detail as b on a.f_info_id = b.f_info_id
+        where a.f_info_id=#{newsId}
+    </select>
+
+    <select id="getNewsesByNoteId" parameterType="NewsPage" resultMap="newsMapper">
+        select a.f_info_id,a.f_meta_description,a.f_title,
+        b.f_publish_date
+        from cms_info_detail a
+        join cms_info b on a.f_info_id = b.f_info_id
+        where b.f_node_id in
+                (select f_node_id from cms_node where f_parent_id = #{nodeId})
+              or b.f_node_id = #{nodeId}
+        order by b.f_publish_date desc
+        limit #{itemStart}, #{pageSize}
+    </select>
+
+    <select id="getNewsesCountByNoteId" parameterType="int" resultType="Integer">
+        select count(1) as totalCount
+        from cms_info_detail a
+        join cms_info b on a.f_info_id = b.f_info_id
+        where b.f_node_id in
+        (select f_node_id from cms_node where f_parent_id = #{nodeId})
+        or b.f_node_id = #{parentId}
     </select>
 
 </mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.iubeier.portal.mapper.NodeMapper">
+    <resultMap id="nodesMapper" type="Node">
+        <id property="nodeId" column="f_node_id" />
+        <result property="nodeName" column="f_name" />
+    </resultMap>
+
+    <select id="getNodesByParentId" parameterType="int" resultMap="nodesMapper">
+        select f_node_id,f_name from cms_node
+        where f_parent_id = #{parentId}
+        order by f_tree_level asc
+    </select>
+
+</mapper>

@@ -1,39 +1,24 @@
 package com.iubeier.portal.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Date;
+
 
 /**
  * Created by jankie on 16/1/23.
  */
+@Getter
+@Setter
 public class News {
 
-    private String newsId;
+    private int newsId;
 
     private String title;
 
-    private String content;
+    private String summary;
 
-    public String getNewsId() {
-        return newsId;
-    }
-
-    public void setNewsId(String newsId) {
-        this.newsId = newsId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    private Date publishDate;
 
 }
