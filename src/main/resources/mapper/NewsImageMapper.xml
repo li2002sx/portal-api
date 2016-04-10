@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.iubeier.portal.mapper.NewsImageMapper">
+    <resultMap id="newsImageMapper" type="NewsImage">
+        <id property="newsId" column="f_info_id" />
+        <result property="name" column="f_name" />
+        <result property="image" column="f_image" />
+        <result property="text" column="f_text" />
+    </resultMap>
+
+    <select id="getImagesByNewsId" parameterType="int" resultMap="newsImageMapper">
+        select * from cms_info_image
+        where f_info_id=#{newsId}
+        order by f_index asc
+    </select>
+
+</mapper>

@@ -1,0 +1,6 @@
+[ INFO ] [2016-02-04 11:12:03] org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext [960] - Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@3e78b6a5: startup date [Tue Feb 02 22:12:23 CST 2016]; root of context hierarchy
+[ INFO ] [2016-02-04 11:12:03] org.springframework.jmx.export.annotation.AnnotationMBeanExporter [449] - Unregistering JMX-exposed beans on shutdown
+[ WARN ] [2016-02-04 11:12:03] org.springframework.beans.factory.support.DisposableBeanAdapter [364] - Invocation of destroy method 'close' failed on bean with name 'sqlSessionTemplate': java.lang.UnsupportedOperationException: Manual close is not allowed over a Spring managed SqlSession
+[ INFO ] [2016-02-04 11:12:03] org.eclipse.jetty.server.ServerConnector [306] - Stopped ServerConnector@67e0ff3a{HTTP/1.1}{0.0.0.0:8081}
+[ INFO ] [2016-02-04 11:12:03] application [2052] - Destroying Spring FrameworkServlet 'dispatcherServlet'
+[ INFO ] [2016-02-04 11:12:03] org.eclipse.jetty.server.handler.ContextHandler [865] - Stopped o.s.b.c.e.j.JettyEmbeddedWebAppContext@3667faa8{/,file:/Users/xiaoliguo/Desktop/dev/java/iubeier/portal-api/src/main/webapp/,UNAVAILABLE}

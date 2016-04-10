@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class DataList<T> {
+public class DataList<T> extends Result {
     private List<T> items;
     private int totalCount;
 }

@@ -6,8 +6,17 @@
     <resultMap id="newsMapper" type="News">
         <id property="newsId" column="f_info_id" />
         <result property="title" column="f_title" />
+        <result property="link" column="f_link" />
+        <result property="fullTitle" column="f_full_title" />
+        <result property="author" column="f_author" />
         <result property="summary" column="f_meta_description" />
         <result property="publishDate" column="f_publish_date" />
+        <result property="smallImage" column="f_small_image" />
+        <result property="largeImage" column="f_large_image" />
+        <result property="video" column="f_video" />
+        <result property="file" column="f_file" />
+        <result property="model" column="f_node_model_id" />
+        <result property="image" column="f_image" />
     </resultMap>
 
     <select id="getNewsById" parameterType="int" resultMap="newsMapper">
@@ -17,8 +26,10 @@
     </select>
 
     <select id="getNewsesByNoteId" parameterType="NewsPage" resultMap="newsMapper">
-        select a.f_info_id,a.f_meta_description,a.f_title,
-        b.f_publish_date
+        select a.f_info_id,a.f_meta_description,a.f_title
+        ,a.f_link,a.f_full_title,a.f_author
+        ,a.f_small_image,a.f_large_image,a.f_video,a.f_file
+        ,b.f_publish_date
         from cms_info_detail a
         join cms_info b on a.f_info_id = b.f_info_id
         where b.f_node_id in
@@ -35,6 +46,31 @@
         where b.f_node_id in
         (select f_node_id from cms_node where f_parent_id = #{nodeId})
         or b.f_node_id = #{parentId}
+    </select>
+
+    <select id="getNewsesByAttributeId" parameterType="NewsPage" resultMap="newsMapper">
+        select a.f_info_id,a.f_meta_description,a.f_title
+        ,a.f_link,a.f_full_title,a.f_author
+        ,a.f_small_image,a.f_large_image,a.f_video,a.f_file
+        ,b.f_publish_date
+        ,c.f_image
+        ,d.f_node_model_id
+        from cms_info_detail a
+        join cms_info b on a.f_info_id = b.f_info_id
+        join cms_info_attribute c on b.f_info_id = c.f_info_id
+        join cms_node d on b.f_node_id = d.f_node_id
+        where c.f_attribute_id = #{attributeId}
+        order by b.f_publish_date desc
+        limit #{itemStart}, #{pageSize}
+    </select>
+
+    <select id="getNewsesCountByAttributeId" parameterType="int" resultType="Integer">
+        select count(1) as totalCount
+        from cms_info_detail a
+        join cms_info b on a.f_info_id = b.f_info_id
+        join cms_info_attribute c on b.f_info_id = c.f_info_id
+        join cms_node d on b.f_node_id = d.f_node_id
+        where c.f_attribute_id = #{attributeId}
     </select>
 
 </mapper>

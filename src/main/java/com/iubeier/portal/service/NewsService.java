@@ -1,7 +1,8 @@
 package com.iubeier.portal.service;
 
 import com.iubeier.portal.domain.News;
-import com.iubeier.portal.domain.NewsPage;
+import com.iubeier.portal.domain.NewsImage;
+import com.iubeier.portal.domain.param.NewsPage;
 
 import java.util.List;
 
@@ -15,4 +16,10 @@ public interface NewsService {
     List<News> getNewsesByNoteId(NewsPage args);
 
     int getNewsesCountByNoteId(int nodeId);
+
+    List<NewsImage> getImagesByNewsId(int newsId);
+
+    List<News> getNewsesByAttributeId(NewsPage args);
+
+    int getNewsesCountByAttributeId(int attributeId);
 }

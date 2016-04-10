@@ -5,13 +5,20 @@
 <mapper namespace="com.iubeier.portal.mapper.NodeMapper">
     <resultMap id="nodesMapper" type="Node">
         <id property="nodeId" column="f_node_id" />
+        <result property="model" column="f_node_model_id" />
         <result property="nodeName" column="f_name" />
+        <result property="link" column="f_link" />
+        <result property="summary" column="f_meta_description" />
     </resultMap>
 
     <select id="getNodesByParentId" parameterType="int" resultMap="nodesMapper">
-        select f_node_id,f_name from cms_node
-        where f_parent_id = #{parentId}
-        order by f_tree_level asc
+        select a.f_node_id,a.f_node_model_id,a.f_name
+        ,b.f_link,b.f_meta_description
+        from cms_node a
+        join cms_node_detail b
+        on a.f_node_id = b.f_node_id
+        where a.f_parent_id = #{parentId}
+        order by a.f_node_id asc
     </select>
 
 </mapper>

@@ -2,7 +2,8 @@ package com.iubeier.portal.manage;
 
 import com.iubeier.portal.dao.NewsDao;
 import com.iubeier.portal.domain.News;
-import com.iubeier.portal.domain.NewsPage;
+import com.iubeier.portal.domain.NewsImage;
+import com.iubeier.portal.domain.param.NewsPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,5 +28,17 @@ public class NewsManage {
 
     public int getNewsesCountByNoteId(int nodeId){
         return newsDao.getNewsesCountByNoteId(nodeId);
+    }
+
+    public List<NewsImage> getImagesByNewsId(int newsId){
+        return newsDao.getImagesByNewsId(newsId);
+    }
+
+    public List<News> getNewsesByAttributeId(NewsPage args){
+        return newsDao.getNewsesByAttributeId(args);
+    }
+
+    public int getNewsesCountByAttributeId(int attributeId){
+        return newsDao.getNewsesCountByAttributeId(attributeId);
     }
 }

@@ -1,8 +1,10 @@
 package com.iubeier.portal.controller;
 
 import com.iubeier.portal.domain.News;
-import com.iubeier.portal.domain.NewsPage;
+import com.iubeier.portal.domain.NewsImage;
+import com.iubeier.portal.domain.param.NewsPage;
 import com.iubeier.portal.domain.comm.DataList;
+import com.iubeier.portal.manage.NewsConvert;
 import com.iubeier.portal.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +29,7 @@ public class NewsController {
         return news;
     }
 
-    @RequestMapping("/newses/{id}/{pi}")
+    @RequestMapping("/newslist/{id}/{pi}")
     public DataList<News> getNewsesByNoteId(@PathVariable(value = "id") int nodeId
             ,@PathVariable(value = "pi") int pageIndex){
 
@@ -44,6 +46,39 @@ public class NewsController {
         DataList<News> newsList = new DataList<News>();
         newsList.setItems(newses);
         newsList.setTotalCount(totalCount);
+        return newsList;
+    }
+
+    @RequestMapping("/newsimage/{id}")
+    public List<NewsImage> getImagesByNewsId(@PathVariable(value = "id") int newsId){
+        return newsService.getImagesByNewsId(newsId);
+    }
+
+    @RequestMapping("/firstnewslist/{id}/{pi}")
+    public DataList<News> getNewsesByAttributeId(@PathVariable(value = "id") int attributeId
+            ,@PathVariable(value = "pi") int pageIndex){
+
+        DataList<News> newsList = new DataList<News>();
+        try {
+            int pageSize = 20;
+
+            NewsPage newsPage = new NewsPage();
+            newsPage.setAttributeId(attributeId);
+            newsPage.setItemStart((pageIndex - 1) * pageSize);
+            newsPage.setPageSize(pageSize);
+
+            List<News> newses = newsService.getNewsesByAttributeId(newsPage);
+            newses = NewsConvert.NewsListConvert(newses);
+            int totalCount = newsService.getNewsesCountByAttributeId(attributeId);
+
+
+            newsList.setItems(newses);
+            newsList.setTotalCount(totalCount);
+            newsList.setStatus(1);
+        }catch (RuntimeException ex){
+            newsList.setStatus(0);
+            newsList.setMessage(ex.getMessage());
+        }
         return newsList;
     }
 }

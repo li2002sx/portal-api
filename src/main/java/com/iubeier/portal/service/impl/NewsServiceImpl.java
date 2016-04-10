@@ -1,7 +1,8 @@
 package com.iubeier.portal.service.impl;
 
 import com.iubeier.portal.domain.News;
-import com.iubeier.portal.domain.NewsPage;
+import com.iubeier.portal.domain.NewsImage;
+import com.iubeier.portal.domain.param.NewsPage;
 import com.iubeier.portal.manage.NewsManage;
 import com.iubeier.portal.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,17 @@ public class NewsServiceImpl implements NewsService {
 
     public int getNewsesCountByNoteId(int nodeId){
         return newsManage.getNewsesCountByNoteId(nodeId);
+    }
+
+    public List<NewsImage> getImagesByNewsId(int newsId){
+        return newsManage.getImagesByNewsId(newsId);
+    }
+
+    public List<News> getNewsesByAttributeId(NewsPage args){
+        return newsManage.getNewsesByAttributeId(args);
+    }
+
+    public int getNewsesCountByAttributeId(int attributeId){
+        return newsManage.getNewsesCountByAttributeId(attributeId);
     }
 }

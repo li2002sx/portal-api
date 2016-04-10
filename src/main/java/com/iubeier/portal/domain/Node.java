@@ -14,4 +14,10 @@ public class Node {
 
     private String nodeName;
 
+    private int model;
+
+    private String link;
+
+    private String summary;
+
 }
